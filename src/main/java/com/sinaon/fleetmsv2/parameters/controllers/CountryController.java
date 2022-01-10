@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sinaon.fleetmsv2.parameters.models.Country;
 import com.sinaon.fleetmsv2.parameters.services.CountryService;
@@ -16,10 +16,12 @@ public class CountryController {
 	@Autowired
 	private CountryService countryService;
 
-	@ResponseBody
 	@GetMapping("/countries")
-	public List<Country> getAll() {
-		return countryService.getAll();
+	public String getAll(Model model) {
+
+		List<Country> countries = countryService.getAll();
+		model.addAttribute("countries", countries);
+		return "parameters/countryList";
 	}
 
 }
