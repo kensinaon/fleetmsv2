@@ -15,7 +15,7 @@ import com.sinaon.fleetmsv2.parameters.models.Country;
 import com.sinaon.fleetmsv2.parameters.services.CountryService;
 
 @Controller
-public class CountryController {
+public class StateController {
 
 	@Autowired
 	private CountryService countryService;

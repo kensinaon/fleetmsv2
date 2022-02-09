@@ -45,4 +45,14 @@ public class ApplicationController {
 	public String parameters() {
 		return "/parameters/index";
 	}
+	
+	@GetMapping("/reports")
+	public String reports() {
+		return "/reports/index";
+	}
+	
+	@GetMapping("/security")
+	public String security() {
+		return "/security/index";
+	}
 }
