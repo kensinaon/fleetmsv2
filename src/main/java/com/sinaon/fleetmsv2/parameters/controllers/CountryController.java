@@ -25,29 +25,29 @@ public class CountryController {
 
 		List<Country> countries = countryService.getAll();
 		model.addAttribute("countries", countries);
-		return "parameters/countryList";
+		return "parameters/countries";
 	}
 
-	@GetMapping("countryAdd")
+	@GetMapping("/countryAdd")
 	public String addCountry() {
 		return "parameters/countryAdd";
 	}
 
-	@GetMapping("countryEdit/{id}")
+	@GetMapping("/countryEdit/{id}")
 	public String editCountry(@PathVariable Integer id, Model model) {
 		Country country = countryService.getById(id);
 		model.addAttribute("country", country);
 		return "parameters/countryEdit";
 	}
 	
-	@GetMapping("countryDetails/{id}")
+	@GetMapping("/countryDetails/{id}")
 	public String detailsCountry(@PathVariable Integer id, Model model) {
 		Country country = countryService.getById(id);
 		model.addAttribute("country", country);
 		return "parameters/countryDetails";
 	}
 
-	@PostMapping("countries")
+	@PostMapping("/countries")
 	public String saveCountry(Country country) {
 		countryService.save(country);
 		return "redirect:/countries";

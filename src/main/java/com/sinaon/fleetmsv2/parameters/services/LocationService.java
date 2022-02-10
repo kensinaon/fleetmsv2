@@ -19,8 +19,8 @@ public class LocationService {
 
 	}
 	
-	public void save(Location country) {
-		locationRepository.save(country);
+	public void save(Location location) {
+		locationRepository.save(location);
 	}
 	
 	public void delete(Integer id) {

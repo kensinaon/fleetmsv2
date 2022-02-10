@@ -11,58 +11,69 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sinaon.fleetmsv2.parameters.models.Country;
+import com.sinaon.fleetmsv2.parameters.models.State;
 import com.sinaon.fleetmsv2.parameters.services.CountryService;
+import com.sinaon.fleetmsv2.parameters.services.StateService;
 
 @Controller
 public class StateController {
 
 	@Autowired
+	private StateService stateService;
+	
+	@Autowired
 	private CountryService countryService;
+	
+	public Model addModelAttribute(Model model) {
+		model.addAttribute("states", stateService.getAll());
+		model.addAttribute("countries", countryService.getAll());
+		return model;
+	}
 
-	@GetMapping("/countries")
+	@GetMapping("/states")
 	public String getAll(Model model) {
 
-		List<Country> countries = countryService.getAll();
-		model.addAttribute("countries", countries);
-		return "parameters/countryList";
+		List<State> states = stateService.getAll();
+		model.addAttribute("states", states);
+		return "parameters/states";
 	}
 
-	@GetMapping("countryAdd")
-	public String addCountry() {
-		return "parameters/countryAdd";
+	@GetMapping("/stateAdd")
+	public String add(Model model) {
+		addModelAttribute(model);
+		return "parameters/stateAdd";
 	}
 
-	@GetMapping("countryEdit/{id}")
-	public String editCountry(@PathVariable Integer id, Model model) {
-		Country country = countryService.getById(id);
-		model.addAttribute("country", country);
-		return "parameters/countryEdit";
-	}
-	
-	@GetMapping("countryDetails/{id}")
-	public String detailsCountry(@PathVariable Integer id, Model model) {
-		Country country = countryService.getById(id);
-		model.addAttribute("country", country);
-		return "parameters/countryDetails";
+	@GetMapping("/stateEdit/{id}")
+	public String edit(@PathVariable Integer id, Model model) {
+		addModelAttribute(model);
+		model.addAttribute("state", stateService.getById(id));
+		return "parameters/stateEdit";
 	}
 
-	@PostMapping("countries")
-	public String saveCountry(Country country) {
-		countryService.save(country);
-		return "redirect:/countries";
+	@GetMapping("/stateDetails/{id}")
+	public String details(@PathVariable Integer id, Model model) {
+		addModelAttribute(model);
+		model.addAttribute("state", stateService.getById(id));
+		return "parameters/stateDetails";
 	}
 
-	@RequestMapping(value = "/countries/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE })
+	@PostMapping("/states")
+	public String save(State state) {
+		stateService.save(state);
+		return "redirect:/states";
+	}
+
+	@RequestMapping(value = "/state/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE })
 	public String delete(@PathVariable Integer id) {
-		countryService.delete(id);
-		return "redirect:/countries";
+		stateService.delete(id);
+		return "redirect:/states";
 	}
 
-	@RequestMapping(value = "/countries/update/{id}", method = { RequestMethod.GET, RequestMethod.PUT })
-	public String update(Country country) {
-		countryService.save(country);
-		return "redirect:/countries";
+	@RequestMapping(value = "/states/update/{id}", method = { RequestMethod.GET, RequestMethod.PUT })
+	public String update(State state) {
+		stateService.save(state);
+		return "redirect:/states";
 	}
 
 }

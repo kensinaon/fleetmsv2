@@ -19,8 +19,8 @@ public class ModuleService {
 
 	}
 	
-	public void save(Module country) {
-		moduleRepository.save(country);
+	public void save(Module module) {
+		moduleRepository.save(module);
 	}
 	
 	public void delete(Integer id) {

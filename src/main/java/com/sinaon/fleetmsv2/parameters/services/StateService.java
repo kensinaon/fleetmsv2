@@ -19,8 +19,8 @@ public class StateService {
 
 	}
 	
-	public void save(State country) {
-		stateRepository.save(country);
+	public void save(State state) {
+		stateRepository.save(state);
 	}
 	
 	public void delete(Integer id) {

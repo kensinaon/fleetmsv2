@@ -19,8 +19,8 @@ public class ContactService {
 
 	}
 	
-	public void save(Contact country) {
-		contactRepository.save(country);
+	public void save(Contact contact) {
+		contactRepository.save(contact);
 	}
 	
 	public void delete(Integer id) {

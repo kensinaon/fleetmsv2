@@ -19,8 +19,8 @@ public class DepartmentService {
 
 	}
 	
-	public void save(CommonObject country) {
-		departmentRepository.save(country);
+	public void save(CommonObject commonObject) {
+		departmentRepository.save(commonObject);
 	}
 	
 	public void delete(Integer id) {

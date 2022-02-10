@@ -11,58 +11,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sinaon.fleetmsv2.parameters.models.Country;
-import com.sinaon.fleetmsv2.parameters.services.CountryService;
+import com.sinaon.fleetmsv2.parameters.models.Client;
+import com.sinaon.fleetmsv2.parameters.services.ClientService;
 
 @Controller
 public class ClientController {
 
 	@Autowired
-	private CountryService countryService;
+	private ClientService clientService;
 
-	@GetMapping("/countries")
+	@GetMapping("/clients")
 	public String getAll(Model model) {
 
-		List<Country> countries = countryService.getAll();
-		model.addAttribute("countries", countries);
-		return "parameters/countryList";
+		List<Client> clients = clientService.getAll();
+		model.addAttribute("clients", clients);
+		return "parameters/clients";
 	}
 
-	@GetMapping("countryAdd")
-	public String addCountry() {
-		return "parameters/countryAdd";
+	@GetMapping("clientAdd")
+	public String add() {
+		return "parameters/clientAdd";
 	}
 
-	@GetMapping("countryEdit/{id}")
-	public String editCountry(@PathVariable Integer id, Model model) {
-		Country country = countryService.getById(id);
-		model.addAttribute("country", country);
-		return "parameters/countryEdit";
-	}
-	
-	@GetMapping("countryDetails/{id}")
-	public String detailsCountry(@PathVariable Integer id, Model model) {
-		Country country = countryService.getById(id);
-		model.addAttribute("country", country);
-		return "parameters/countryDetails";
+	@GetMapping("clientEdit/{id}")
+	public String edit(@PathVariable Integer id, Model model) {
+		Client clients = clientService.getById(id);
+		model.addAttribute("clients", clients);
+		return "parameters/clientEdit";
 	}
 
-	@PostMapping("countries")
-	public String saveCountry(Country country) {
-		countryService.save(country);
-		return "redirect:/countries";
+	@GetMapping("clientDetails/{id}")
+	public String details(@PathVariable Integer id, Model model) {
+		Client clients = clientService.getById(id);
+		model.addAttribute("clients", clients);
+		return "parameters/clientDetails";
 	}
 
-	@RequestMapping(value = "/countries/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE })
+	@PostMapping("/clients")
+	public String save(Client client) {
+		clientService.save(client);
+		return "redirect:/clients";
+	}
+
+	@RequestMapping(value = "/clients/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE })
 	public String delete(@PathVariable Integer id) {
-		countryService.delete(id);
-		return "redirect:/countries";
+		clientService.delete(id);
+		return "redirect:/clients";
 	}
 
-	@RequestMapping(value = "/countries/update/{id}", method = { RequestMethod.GET, RequestMethod.PUT })
-	public String update(Country country) {
-		countryService.save(country);
-		return "redirect:/countries";
+	@RequestMapping(value = "/clients/update/{id}", method = { RequestMethod.GET, RequestMethod.PUT })
+	public String update(Client client) {
+		clientService.save(client);
+		return "redirect:/clients";
 	}
 
 }

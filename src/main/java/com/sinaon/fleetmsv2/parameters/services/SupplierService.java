@@ -19,8 +19,8 @@ public class SupplierService {
 
 	}
 	
-	public void save(Supplier country) {
-		supplierRepository.save(country);
+	public void save(Supplier supplier) {
+		supplierRepository.save(supplier);
 	}
 	
 	public void delete(Integer id) {
