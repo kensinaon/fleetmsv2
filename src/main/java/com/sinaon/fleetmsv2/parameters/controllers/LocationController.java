@@ -12,13 +12,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sinaon.fleetmsv2.parameters.models.Location;
+import com.sinaon.fleetmsv2.parameters.services.CountryService;
 import com.sinaon.fleetmsv2.parameters.services.LocationService;
+import com.sinaon.fleetmsv2.parameters.services.StateService;
 
 @Controller
 public class LocationController {
 
 	@Autowired
 	private LocationService locationService;
+	
+	@Autowired
+	private StateService stateService;
+	
+	@Autowired
+	private CountryService countryService;
+	
+	public Model addModelAttribute(Model model) {
+		model.addAttribute("states", stateService.getAll());
+		model.addAttribute("countries", countryService.getAll());
+		return model;
+	}
 
 	@GetMapping("/locations")
 	public String getAll(Model model) {
@@ -29,21 +43,22 @@ public class LocationController {
 	}
 
 	@GetMapping("/locationAdd")
-	public String add() {
+	public String add(Model model) {
+		addModelAttribute(model);
 		return "parameters/locationAdd";
 	}
 
 	@GetMapping("/locationEdit/{id}")
 	public String edit(@PathVariable Integer id, Model model) {
-		Location locations = locationService.getById(id);
-		model.addAttribute("locations", locations);
+		addModelAttribute(model);
+		model.addAttribute("location", locationService.getById(id));
 		return "parameters/locationEdit";
 	}
 
 	@GetMapping("/locationDetails/{id}")
 	public String details(@PathVariable Integer id, Model model) {
-		Location locations = locationService.getById(id);
-		model.addAttribute("locations", locations);
+		addModelAttribute(model);
+		model.addAttribute("location", locationService.getById(id));
 		return "parameters/locationDetails";
 	}
 

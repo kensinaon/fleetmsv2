@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sinaon.fleetmsv2.parameters.models.Country;
 import com.sinaon.fleetmsv2.parameters.services.CountryService;
@@ -27,7 +28,15 @@ public class CountryController {
 		model.addAttribute("countries", countries);
 		return "parameters/countries";
 	}
-
+	
+	//The Get Country By Id
+	@GetMapping("/country/{id}")
+	@ResponseBody
+	public Country getCountry(@PathVariable Integer id){
+		System.out.println("IM CALLED!");
+	    return countryService.getById(id);
+	}
+ 
 	@GetMapping("/countryAdd")
 	public String addCountry() {
 		return "parameters/countryAdd";
